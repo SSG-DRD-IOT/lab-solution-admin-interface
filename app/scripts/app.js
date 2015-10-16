@@ -13,9 +13,8 @@ angular
           'oc.lazyLoad',
           'ui.router',
           'ui.bootstrap',
-          'angular-loading-bar'
-          // 'swaggerUi',
-          //     'angular-rickshaw',
+          'angular-loading-bar',
+          'angular-rickshaw'
       ])
     .config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider) {
 

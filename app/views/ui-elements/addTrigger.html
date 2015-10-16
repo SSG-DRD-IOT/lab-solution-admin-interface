@@ -1,0 +1,115 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Triggers</h1>
+  </div>
+  <!-- /.col-lg-12 -->
+</div>
+
+
+<!-- /.row -->
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Add Trigger
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <form role="form" ng-submit="saveData(form)" value="refresh">
+              <div class="form-group">
+                <label>Enter Trigger Name</label>
+                <input class="form-control" placeholder="Enter name of Trigger" ng-model = "form.name" required>
+              </div>
+
+              <div class="form-group">
+                <label>Select Sensor</label>
+                <select class="form-control" ng-model = "form.sensor" required>
+                  <option ng-repeat="sensor in sensors" value="{{sensor.id}}">{{sensor.name}}</option>
+		</select>
+              </div>
+
+              <div class="form-group">
+                <label>Enter Condition</label>
+                <textarea id="condition" name="code">
+(
+  function(temperature) {
+    return this.temperature_greater_than_27_condition(temperature)
+  }
+)
+                </textarea>
+
+                <input class="form-control" ng-model = "form.conditions" required>
+              </div>
+
+              <div class="form-group">
+                <label>Select Actuator</label>
+                <select class="form-control" ng-model = "form.actuator" required>
+                  <option ng-repeat="actuator in actuators" value="{{actuator.id}}">{{actuator.name}}</option>
+		</select>
+              </div>
+
+              <div class="form-group">
+                <label>Select Function</label>
+                <select class="form-control" ng-model = "form.control" required>
+                  <option value="{&quot;triggerFunc&quot;:&quot;on&quot;}">ON</option>
+                  <option value="{&quot;triggerFunc&quot;:&quot;off&quot;}">OFF</option>
+                </select>
+              </div>
+
+              <textarea id="trigger" name="code">
+
+              </textarea>
+
+
+	      <div class="form-group">
+                <button type="submit" class="btn btn-outline btn-primary btn-lg" id="text-center">Save</button>
+              </div>
+
+
+<script>
+  var editort = CodeMirror.fromTextArea(document.getElementById("trigger"), {
+    lineNumbers: true,
+    theme: "base16-light",
+    styleActiveLine: true,
+    matchBrackets: true,
+    extraKeys: {
+        "F10": function(cm) {
+          cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+        },
+        "Esc": function(cm) {
+          if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+        }
+      }
+  });
+
+  var editorc = CodeMirror.fromTextArea(document.getElementById("condition"), {
+    lineNumbers: true,
+    theme: "base16-light",
+    styleActiveLine: true,
+    matchBrackets: true,
+    extraKeys: {
+        "F10": function(cm) {
+          cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+        },
+        "Esc": function(cm) {
+          if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+        }
+      }
+  });
+</script>
+
+
+
+
+            </form>
+          </div>
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+  </div>
+  <!-- /.col-lg-12 -->
+</div>

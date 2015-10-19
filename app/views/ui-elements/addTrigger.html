@@ -31,7 +31,7 @@
 
               <div class="form-group">
                 <label>Enter Condition</label>
-                <textarea id="condition" name="code">
+                <textarea id="condition" name="code" ng-model="form.conditions">
 (
   function(temperature) {
     return this.temperature_greater_than_27_condition(temperature)
@@ -39,27 +39,26 @@
 )
                 </textarea>
 
-                <input class="form-control" ng-model = "form.conditions" required>
+                <!-- <input class="form-control" ng-model = "form.conditions" required> -->
               </div>
 
               <div class="form-group">
-                <label>Select Actuator</label>
-                <select class="form-control" ng-model = "form.actuator" required>
-                  <option ng-repeat="actuator in actuators" value="{{actuator.id}}">{{actuator.name}}</option>
-		</select>
+                <label>Enter Trigger function</label>
+                <textarea id="trigger" name="code" ng-model="form.trigger">
+(
+  function(temperature) {
+    return this.temperature_greater_than_27_condition(temperature)
+  }
+)
+                </textarea>
+
+                <!-- <input class="form-control" ng-model = "form.conditions" required> -->
               </div>
 
               <div class="form-group">
-                <label>Select Function</label>
-                <select class="form-control" ng-model = "form.control" required>
-                  <option value="{&quot;triggerFunc&quot;:&quot;on&quot;}">ON</option>
-                  <option value="{&quot;triggerFunc&quot;:&quot;off&quot;}">OFF</option>
-                </select>
+                <input type="radio" ng-model="form.active" value="true" />  Active
+                <input type="radio" ng-model="form.active" value="false" />  Inactive<br />
               </div>
-
-              <textarea id="trigger" name="code">
-
-              </textarea>
 
 
 	      <div class="form-group">
@@ -67,37 +66,37 @@
               </div>
 
 
-<script>
-  var editort = CodeMirror.fromTextArea(document.getElementById("trigger"), {
-    lineNumbers: true,
-    theme: "base16-light",
-    styleActiveLine: true,
-    matchBrackets: true,
-    extraKeys: {
-        "F10": function(cm) {
-          cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-        },
-        "Esc": function(cm) {
-          if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-        }
-      }
-  });
+<!-- <script> -->
+<!--   var editort = CodeMirror.fromTextArea(document.getElementById("trigger"), { -->
+<!--     lineNumbers: true, -->
+<!--     theme: "base16-light", -->
+<!--     styleActiveLine: true, -->
+<!--     matchBrackets: true, -->
+<!--     extraKeys: { -->
+<!--         "F10": function(cm) { -->
+<!--           cm.setOption("fullScreen", !cm.getOption("fullScreen")); -->
+<!--         }, -->
+<!--         "Esc": function(cm) { -->
+<!--           if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false); -->
+<!--         } -->
+<!--       } -->
+<!--   }); -->
 
-  var editorc = CodeMirror.fromTextArea(document.getElementById("condition"), {
-    lineNumbers: true,
-    theme: "base16-light",
-    styleActiveLine: true,
-    matchBrackets: true,
-    extraKeys: {
-        "F10": function(cm) {
-          cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-        },
-        "Esc": function(cm) {
-          if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-        }
-      }
-  });
-</script>
+<!--   var editorc = CodeMirror.fromTextArea(document.getElementById("condition"), { -->
+<!--     lineNumbers: true, -->
+<!--     theme: "base16-light", -->
+<!--     styleActiveLine: true, -->
+<!--     matchBrackets: true, -->
+<!--     extraKeys: { -->
+<!--         "F10": function(cm) { -->
+<!--           cm.setOption("fullScreen", !cm.getOption("fullScreen")); -->
+<!--         }, -->
+<!--         "Esc": function(cm) { -->
+<!--           if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false); -->
+<!--         } -->
+<!--       } -->
+<!--   }); -->
+<!-- </script> -->
 
 
 

@@ -14,7 +14,8 @@ angular
             'ui.router',
             'ui.bootstrap',
             'angular-loading-bar',
-            'angular-rickshaw'
+            'angular-rickshaw',
+			'ui.codemirror'
         ])
     .config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider) {
 

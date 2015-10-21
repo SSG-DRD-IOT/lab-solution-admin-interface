@@ -180,18 +180,18 @@ angular.module('sbAdminApp')
     }
     ];
 
-  // $scope.temperature = [{
-  //   name: 'Series 1',
-  //   color: 'steelblue',
-  //   data: [{x: 0, y: 23}, {x: 1, y: 15}, {x: 2, y: 79}, {x: 3, y: 31}, {x: 4, y: 60}]
-  // }];
-
-
-  // To remove row from trigger
-
-  // To get historic data from cloud
-  //$http.get('http://172.16.21.235:4000/api/v0001/historic/data?id=123').success(function(data,status) {
-  //       $scope.line1 = data;
-  // });
+	$scope.codeMirrorOption = {
+		lineNumbers: true,
+		indentWithTabs: true,
+		lineWrapping : true,
+		mode: 'javascript'
+		
+    };
+	
+	$scope.TriggerForm = {
+		conditions: "( function(sensor_value) { return this.temperature_greater_than_27_condition(sensor_value) } )",
+		active: "true",
+		triggerFunc:"( function() { this.temperature_too_hot(); })"
+    };
 
 }]);

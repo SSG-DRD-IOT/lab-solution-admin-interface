@@ -130,13 +130,12 @@ restapi.post('/removeTrigger',function(req,res){
 // To add a new trigger to database
 restapi.post('/addTrigger',function(req,res){
     var trigger = new Trigger({
-        id: req.param("id"),
+        id: req.param("name"),
         name: req.param("name"),
         sensor_id: req.param("sensor"),
-        actuator_id: req.param("actuator"),
-        validator_id: req.param("validator"),
         condition: req.param("conditions"),
-        triggerFunc: req.param("control")
+        triggerFunc: req.param("control"),
+        active: req.param("active")
     });
 
     trigger.save(function(err, row){

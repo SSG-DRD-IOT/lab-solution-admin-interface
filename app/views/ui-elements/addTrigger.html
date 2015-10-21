@@ -16,48 +16,46 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
-            <form role="form" ng-submit="saveData(form)" value="refresh">
+            <form role="form" ng-submit="saveData(TriggerForm)" value="refresh">
               <div class="form-group">
                 <label>Enter Trigger Name</label>
-                <input class="form-control" placeholder="Enter name of Trigger" ng-model = "form.name" required>
+                <input class="form-control" placeholder="Enter name of Trigger" ng-model = "TriggerForm.name" required>
               </div>
 
               <div class="form-group">
                 <label>Select Sensor</label>
-                <select class="form-control" ng-model = "form.sensor" required>
+                <select class="form-control" ng-model = "TriggerForm.sensor" required>
                   <option ng-repeat="sensor in sensors" value="{{sensor.id}}">{{sensor.name}}</option>
 		</select>
               </div>
 
               <div class="form-group">
                 <label>Enter Condition</label>
-                <textarea id="condition" name="code" ng-model="form.conditions">
-(
-  function(temperature) {
-    return this.temperature_greater_than_27_condition(temperature)
-  }
-)
-                </textarea>
+        <!--        <textarea id="condition" name="code" ng-model="form.conditions">   -->
+<section>
+  <div ui-codemirror= "codeMirrorOption"  ng-model="TriggerForm.conditions" style="height: auto; border: 1px solid #eee;"></div>
+</section>
 
+       <!--         </textarea>  -->
+ 
                 <!-- <input class="form-control" ng-model = "form.conditions" required> -->
               </div>
 
               <div class="form-group">
                 <label>Enter Trigger function</label>
-                <textarea id="trigger" name="code" ng-model="form.trigger">
-(
-  function(temperature) {
-    return this.temperature_greater_than_27_condition(temperature)
-  }
-)
-                </textarea>
+				
+				
+<section>
+  <div ui-codemirror= "codeMirrorOption"  ng-model="TriggerForm.triggerFunc" style="height: auto; border: 1px solid #eee;"></div>
+</section>
+
 
                 <!-- <input class="form-control" ng-model = "form.conditions" required> -->
               </div>
-
-              <div class="form-group">
-                <input type="radio" ng-model="form.active" value="true" />  Active
-                <input type="radio" ng-model="form.active" value="false" />  Inactive<br />
+			   <label>Select State</label>
+              <div class="form-group" ng-init="TriggerForm.active=&quot;true&quot;">
+                <input type="radio" ng-model="TriggerForm.active" value="true" />  Active  
+                <input type="radio" ng-model="TriggerForm.active" value="false" />  Inactive<br />
               </div>
 
 
@@ -99,9 +97,7 @@
 <!-- </script> -->
 
 
-<section>
-  <div ui-codemirror >Code mirror here</div>
-</section>
+
 
             </form>
           </div>

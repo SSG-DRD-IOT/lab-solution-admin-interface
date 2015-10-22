@@ -134,7 +134,7 @@ restapi.post('/addTrigger',function(req,res){
         name: req.param("name"),
         sensor_id: req.param("sensor"),
         condition: req.param("conditions"),
-        triggerFunc: req.param("control"),
+        triggerFunc: req.param("triggerFunc"),
         active: req.param("active")
     });
 

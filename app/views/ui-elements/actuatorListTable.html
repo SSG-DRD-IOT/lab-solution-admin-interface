@@ -19,7 +19,7 @@
           <table class="table table-striped table-bordered table-hover" id="dataTables-example">
             <thead>
               <tr>
-		<th>Expand</th>
+	 <!--	<th>Expand</th>  -->
                 <th>Actuator Id</th>
                 <th>Actuator Name</th>
                 <th>Description</th>
@@ -30,10 +30,10 @@
             <tbody>
 
 	      <tr ng-repeat-start="actuator in actuators" class="dropdown-toggle">
-		<td>
+	<!--	<td>
 		  <button ng-if="actuator.expanded" ng-click="actuator.expanded = false">-</button>
 		  <button ng-if="!actuator.expanded" ng-click="actuator.expanded = true">+</button>
-		</td>
+		</td>                                                                                   -->
 		<td>{{actuator.id}}</td>
 		<td>{{actuator.name}}</td>
 		<td>{{actuator.description}}</td>

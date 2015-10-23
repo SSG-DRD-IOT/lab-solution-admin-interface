@@ -5,7 +5,7 @@
     "body-parser": "^1.13.2",
     "cors": "^2.7.1",
     "express": "^4.13.1",
-    "intel-commerical-edge-network-database-models": "latest",
+    "intel-commerical-edge-network-database-models": "1.0.2",
     "mongoose": "^4.1.1"
   },
   "engines": {

@@ -58,4 +58,29 @@
 </div>
 
 
+
+
+
+
+
+	<h3>Real-time Graphs of Temperature and Light Sensor</h3>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Real-time Graphs of Temperature and Light Sensor</div>
+        <div class="panel-body">
+            <form class="form-inline">
+                <button class="btn btn-primary" ng-click="SensorDataSeries(100)">
+                    <span ng-if="!sensorData100">Start</span>
+                    <span ng-if="sensorData100">Stop</span>
+                </button>
+            </form>
+            <rickshaw rickshaw-options="sensorOptions100" rickshaw-features="sensorFeatures100" rickshaw-series="sensorSeries100"></rickshaw>
+        </div>
+    </div>
+	
+	
+	
+	
+	
+
 </div>

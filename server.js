@@ -159,8 +159,8 @@ restapi.get('/latestValue', function(req, res){
 	
 	function done(){
 		var value = [];
-		value.push(tempValue)
-		value.push(lightValue)
+		value.push({"name":"Temperature","value":tempValue})
+		value.push({"name":"Light","value":lightValue})
 		res.json(value);
 	}
 	var light = Data.findOne({sensor_id: 'Light Sensor'},{},{sort: { 'created_at' : -1 } }, function(err, sensors) {

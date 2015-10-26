@@ -9,7 +9,7 @@
 //var config = require('./config.json');
 angular.module('sbAdminApp')
 
-.controller('MainCtrl',['$scope','$location','$http', '$window',function($scope,$location,$http,$window) {
+.controller('MainCtrl',['$scope','$location','$http', '$window','$interval',function($scope,$location,$http,$window,$interval) {
 
   // To get Number of Sensors for Main Page
   $http.get('/noOfSensor').success(function(data,satus) {
@@ -93,7 +93,6 @@ angular.module('sbAdminApp')
 
   // To Save data for trigger
   $scope.saveData = function(data){
-    console.log(data);
     $http.post( '/addTrigger',data).success(function (data, status, headers, config) {
       $window.location.reload();
     });
@@ -186,13 +185,77 @@ angular.module('sbAdminApp')
 		indentWithTabs: true,
 		lineWrapping : true,
 		mode: 'javascript'
-
+		
     };
-
+	
 	$scope.TriggerForm = {
 		conditions: "( function(sensor_value) { return this.temperature_greater_than_27_condition(sensor_value) } )",
 		active: "true",
 		triggerFunc:"( function() { this.temperature_too_hot(); })"
     };
 
+//*****************************************************************************************************************
+
+
+$scope.sensorOptions100 = {
+            renderer: 'line'
+        };
+    $scope.sensorFeatures100 = {
+            xAxis: {
+            },
+            yAxis: {
+                tickFormat: 'formatKMBT'
+            }
+        };
+        $scope.sensorSeries100 = [{
+                name: 'Temperature',
+                color: 'steelblue',
+                data: []
+            }, {
+                name: 'Light',
+                color: 'lightblue',
+                data: []
+            }];
+			
+		$scope.sensorx100 = 0;	
+		
+		$scope.SensorDataSeries = function(id) {
+            $scope['sensorData'+ id] = !$scope['sensorData'+ id];
+            if ($scope['sensorData'+ id]) {
+                $scope['interval' + id] = $interval(function() {
+					$http.get('/latestValue').success(function(data,satus) {
+						var y = [];
+						y[0] = data[0].value;
+						y[1] = data[1].value;
+						console.log(y);
+						var x = $scope['sensorx' + id];
+						var sensorSeries = $scope['sensorSeries' + id];
+						for (var i = 0; i < sensorSeries.length; i++) {
+							var name = sensorSeries[i].name;
+							var color = sensorSeries[i].color;
+							var data = sensorSeries[i].data;
+							data.push({x: x, y: y[i]});
+							sensorSeries[i] = {
+								name: name,
+								color: color,
+								data: data
+							};
+                    }
+                    x++;
+                    $scope['sensorx' + id] = x;
+						
+					});
+					
+                }, 1000);
+            }
+            else {
+                $interval.cancel($scope['interval' + id]);
+            }
+        };
+
+
+//*****************************************************************************************************************	
+	
+	
+	
 }]);

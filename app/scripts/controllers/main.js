@@ -93,6 +93,7 @@ angular.module('sbAdminApp')
 
   // To Save data for trigger
   $scope.saveData = function(data){
+    console.log(data);
     $http.post( '/addTrigger',data).success(function (data, status, headers, config) {
       $window.location.reload();
     });
@@ -185,9 +186,9 @@ angular.module('sbAdminApp')
 		indentWithTabs: true,
 		lineWrapping : true,
 		mode: 'javascript'
-		
+
     };
-	
+
 	$scope.TriggerForm = {
 		conditions: "( function(sensor_value) { return this.temperature_greater_than_27_condition(sensor_value) } )",
 		active: "true",

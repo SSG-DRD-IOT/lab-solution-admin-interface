@@ -150,6 +150,36 @@ restapi.post('/addTrigger',function(req,res){
     });
 });
 
+
+
+
+restapi.get('/latestValue', function(req, res){
+	var hops=0, total = 2;
+	var lightValue=100 , tempValue=25
+	
+	function done(){
+		var value = [];
+		value.push(tempValue)
+		value.push(lightValue)
+		res.json(value);
+	}
+	var light = Data.findOne({sensor_id: 'Light Sensor'},{},{sort: { 'created_at' : -1 } }, function(err, sensors) {
+        if (sensors != null){
+			lightValue = sensors.value
+		}
+		 if(++hops>=total ){ done(); }
+	});
+	var temp= Data.findOne({sensor_id: 'Temperature Sensor'},{},{sort: { 'created_at' : -1 } }, function(err, sensors) {
+        if (sensors != null){
+			tempValue = sensors.value
+		}
+		 if(++hops>=total){ done(); }
+	});
+});
+
+
+
+
 // To get api according to actuator Id
 //restapi.post('/getApi',function(req,res){
    // db.all("SELECT api FROM actuators WHERE id =\'" + req.param('id') +"\'" , function(err, row){

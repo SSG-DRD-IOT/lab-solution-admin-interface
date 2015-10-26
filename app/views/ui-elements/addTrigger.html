@@ -15,7 +15,7 @@
       </div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-6 col-md-offset-3">
+          <div class="col-md-12">
             <form role="form" ng-submit="saveData(TriggerForm)" value="refresh">
               <div class="form-group">
                 <label>Enter Trigger Name</label>
@@ -37,14 +37,14 @@
 </section>
 
        <!--         </textarea>  -->
- 
+
                 <!-- <input class="form-control" ng-model = "form.conditions" required> -->
               </div>
 
               <div class="form-group">
                 <label>Enter Trigger function</label>
-				
-				
+
+
 <section>
   <div ui-codemirror= "codeMirrorOption"  ng-model="TriggerForm.triggerFunc" style="height: auto; border: 1px solid #eee;"></div>
 </section>
@@ -54,7 +54,7 @@
               </div>
 			   <label>Select State</label>
               <div class="form-group" ng-init="TriggerForm.active=&quot;true&quot;">
-                <input type="radio" ng-model="TriggerForm.active" value="true" />  Active  
+                <input type="radio" ng-model="TriggerForm.active" value="true" />  Active
                 <input type="radio" ng-model="TriggerForm.active" value="false" />  Inactive<br />
               </div>
 

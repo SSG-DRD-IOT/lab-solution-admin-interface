@@ -246,7 +246,7 @@ $scope.sensorOptions100 = {
 						
 					});
 					
-                }, 1000);
+                }, 10000);
             }
             else {
                 $interval.cancel($scope['interval' + id]);

@@ -163,13 +163,13 @@ restapi.get('/latestValue', function(req, res){
 		value.push({"name":"Light","value":lightValue})
 		res.json(value);
 	}
-	var light = Data.findOne({sensor_id: 'Light Sensor'},{},{sort: { '$natural' : -1 } }, function(err, sensors) {
+	var light = Data.findOne({sensor_id: 'light'},{},{sort: { '$natural' : -1 } }, function(err, sensors) {
         if (sensors != null){
 			lightValue = sensors.value
 		}
 		 if(++hops>=total ){ done(); }
 	});
-	var temp= Data.findOne({sensor_id: 'Temperature Sensor'},{},{sort: { '$natural' : -1 } }, function(err, sensors) {
+	var temp= Data.findOne({sensor_id: 'temperature'},{},{sort: { '$natural' : -1 } }, function(err, sensors) {
         if (sensors != null){
 			tempValue = sensors.value
 		}

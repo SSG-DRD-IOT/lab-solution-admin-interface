@@ -223,7 +223,8 @@ $scope.sensorOptions100 = {
             $scope['sensorData'+ id] = !$scope['sensorData'+ id];
             if ($scope['sensorData'+ id]) {
                 $scope['interval' + id] = $interval(function() {
-					$http.get('/latestValue').success(function(data,satus) {
+                			var CurrentDate = new Date();
+					$http.get('/latestValue?timestamp='+CurrentDate).success(function(data,satus) {
 						var y = [];
 						y[0] = data[0].value;
 						y[1] = data[1].value;

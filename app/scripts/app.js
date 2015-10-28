@@ -311,5 +311,27 @@ angular
                     }
                 }
             })
+			
+			.state('dashboard.editTrigger',{
+                templateUrl:'views/ui-elements/editTrigger.html',
+                url:'/editTrigger',
+                controller:'MainCtrl',
+                resolve: {
+                    loadMyFile:function($ocLazyLoad) {
+                        $ocLazyLoad.load({
+                            name:'sbAdminApp',
+                            files:[
+				'scripts/controllers/main.js',
+				'scripts/controllers/table.js'
+			    ]
+                        })
+                        $ocLazyLoad.load(
+                            {
+                                name:'ngRoute',
+                                files:['bower_components/angular-route/angular-route.js']
+                            })
+                    }
+                }
+            })
 
     }]);

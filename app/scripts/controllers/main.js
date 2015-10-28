@@ -97,6 +97,13 @@ angular.module('sbAdminApp')
       $window.location.reload();
     });
   };
+  
+   $scope.editData = function(data){
+	console.log(data);
+    $http.post( '/editTrigger',data).success(function (data, status, headers, config) {
+		$window.location.reload();
+    });
+  };
 
   $scope.tempOptions = {
     renderer: 'bar'

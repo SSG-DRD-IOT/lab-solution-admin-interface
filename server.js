@@ -150,7 +150,24 @@ restapi.post('/addTrigger',function(req,res){
     });
 });
 
+restapi.post('/editTrigger',function(req,res){
 
+	var query = {id: req.param('id')};
+	var update = {name:req.param("name"), sensor_id:req.param("sensor_id"), condition: req.param("condition"), triggerFunc: req.param("triggerFunc"), active: req.param("active")}
+	var options = {new: true};
+	
+
+    Trigger.findOneAndUpdate(query,update,options, function(err, row){
+        if (err){
+            res.json(err);
+            res.status(500);
+        }
+        else {
+            res.status(202);
+        }
+        res.end();
+    });
+});
 
 
 restapi.get('/latestValue', function(req, res){
@@ -164,12 +181,14 @@ restapi.get('/latestValue', function(req, res){
 		res.json(value);
 	}
 	var light = Data.findOne({sensor_id: 'light'},{},{sort: { '$natural' : -1 } }, function(err, sensors) {
+
         if (sensors != null){
 			lightValue = sensors.value
 		}
 		 if(++hops>=total ){ done(); }
 	});
 	var temp= Data.findOne({sensor_id: 'temperature'},{},{sort: { '$natural' : -1 } }, function(err, sensors) {
+
         if (sensors != null){
 			tempValue = sensors.value
 		}

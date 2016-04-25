@@ -43,9 +43,6 @@
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level" collapse="collapseVar!=3">
                     <li ui-sref-active="active">
-                        <a ui-sref="dashboard.triggerListTable">List Triggers</a>
-                    </li>
-                    <li ui-sref-active="active">
                         <a ui-sref="dashboard.addTrigger">Add Trigger</a>
                     </li>
 					<li ui-sref-active="active">
@@ -57,16 +54,16 @@
                 </ul>
                 <!-- /.nav-second-level -->
             </li>
-			
-			
-			
+
+
+
 			<li ng-class="{active: collapseVar==4}">{{dropDown}}
                 <a href="" ng-click="check(4)"><i class="fa fa-external-link fa-fw"></i> Errors<span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level" collapse="collapseVar!=4">
                     <li ui-sref-active="active">
                         <a ui-sref="dashboard.errorListTable">List Errors</a>
-                    </li>	
+                    </li>
 					                </ul>
                 <!-- /.nav-second-level -->
             </li>

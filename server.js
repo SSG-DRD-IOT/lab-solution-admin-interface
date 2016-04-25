@@ -49,6 +49,9 @@ restapi.use(cors());
 restapi.use(bodyParse());
 restapi.use(express.static(__dirname + '/app'));
 
+// index.js
+var path = require('path');
+global.appRoot = path.resolve(__dirname);
 
 
 // API to get list from Error table
@@ -155,7 +158,7 @@ restapi.post('/editTrigger',function(req,res){
 	var query = {id: req.param('id')};
 	var update = {name:req.param("name"), sensor_id:req.param("sensor_id"), condition: req.param("condition"), triggerFunc: req.param("triggerFunc"), active: req.param("active")}
 	var options = {new: true};
-	
+
 
     Trigger.findOneAndUpdate(query,update,options, function(err, row){
         if (err){
@@ -173,7 +176,7 @@ restapi.post('/editTrigger',function(req,res){
 restapi.get('/latestValue', function(req, res){
 	var hops=0, total = 2;
 	var lightValue=100 , tempValue=25
-	
+
 	function done(){
 		var value = [];
 		value.push({"name":"Temperature","value":tempValue})
@@ -196,62 +199,12 @@ restapi.get('/latestValue', function(req, res){
 	});
 });
 
-
-
-
-// To get api according to actuator Id
-//restapi.post('/getApi',function(req,res){
-   // db.all("SELECT api FROM actuators WHERE id =\'" + req.param('id') +"\'" , function(err, row){
-  //      if (err){
-    //        console.err(err);
-     //       res.status(500);
-      //  }
-       // else {
-        //    res.json(eval(row));
-        //}
-        //res.end();
-    //});
-//});
-
-// API to send sensor data for charts
-// restapi.get('/getSensorData',function(req,res){
-//     db.all("SELECT data,timestamp FROM data WHERE sensor_id =\'" + req.param('sensorId') +"\'" , function(err, rows){
-//         if (err){
-//             console.err(err);
-//             res.status(500);
-//         }
-//         else {
-//             //      console.log(JSON.stringify(rows));
-//             //  var data = _.pluck(rows,'data');
-//             // var timestamp = _.pluck(rows,'timestamp');
-//             var dt = {
-//                 timestamp: ["2015-06-24 23:42:12","2015-06-24 23:42:14","2015-06-24 23:42:15","2015-06-24 23:42:16","2015-06-24 23:42:17","2015-06-24 23:42:18","2015-06-24 23:42:19","2015-06-24 23:42:20","2015-06-24 23:42:21","2015-06-24 23:42:22"],
-//                 values: [[75.2,74.57,75.04,74.88,74.26,74.57,73.95,74.73,74.1,74.26],
-//                          [75.2,74.57,75.04,74.88,74.26,74.57,73.95,74.73,74.1,74.26]]}
-//             // var dt = ('{labels:[" + data + "], data:[" +timestamp+ "]}')
-
-//             res.json(dt);
-//         }
-//         res.end();
-//     });
-// });
-
-// Api to customize cloud data
-//restapi.get('/getCustomizeCloud', function(req, res){
- //   var sql = "SELECT sensors.name AS sensorName, cloudproviders.name AS cloudName, sensors.id AS sensorId, cloudproviders.id AS cloudId FROM cloudproviders, sensors, sensors_clouds WHERE sensors_clouds.sensor_id = sensors.id AND cloudproviders.id = sensors_clouds.cloudprovider_id "
-    //  console.log(sql);
-   // db.all(sql, function(err,rows){
-    //    res.json(rows);
-    //});
-//});
-
-
 // Api to redirect to Angular.JS website
 restapi.get('*', function(req, res) {
-    res.sendFile('./app/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+    res.sendFile(appRoot + '/app/index.html'); // load the single view file (angular will handle the page changes on the front-end)
 });
 
-restapi.listen(8080);
+restapi.listen(3000);
 
 
-console.log("Submit GET or POST Request. e.g http://localhost:8080");
+console.log("Submit GET or POST Request. e.g http://localhost:3000");

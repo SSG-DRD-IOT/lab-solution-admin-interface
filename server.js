@@ -32,7 +32,7 @@ mongoose.connect(config.mongodb.host);
 var mdb = mongoose.connection;
 
 mdb.on('error', console.error.bind(console, 'connection error:'));
-mdb.once('open', function (callback) {
+mdb.once('open', function(callback) {
     console.log("Connection to MongoDB successful");
 });
 
@@ -55,7 +55,7 @@ global.appRoot = path.resolve(__dirname);
 
 
 // API to get list from Error table
-restapi.get('/listerror', function(req, res){
+restapi.get('/listerror', function(req, res) {
     Error.find({}, function(err, errors) {
         res.json(errors);
     });
@@ -63,7 +63,7 @@ restapi.get('/listerror', function(req, res){
 
 
 // API to get list from actuator table
-restapi.get('/listActuator', function(req, res){
+restapi.get('/listActuator', function(req, res) {
     Actuator.find({}, function(err, actuators) {
         res.json(actuators);
     });
@@ -71,7 +71,7 @@ restapi.get('/listActuator', function(req, res){
 
 
 // API to get data from Sensors table
-restapi.get('/listSensor', function(req, res){
+restapi.get('/listSensor', function(req, res) {
     Sensor.find({}, function(err, sensors) {
         res.json(sensors);
     });
@@ -79,7 +79,7 @@ restapi.get('/listSensor', function(req, res){
 
 
 // API to get data from Triggers table
-restapi.get('/listTrigger', function(req, res){
+restapi.get('/listTrigger', function(req, res) {
     Trigger.find({}, function(err, triggers) {
         res.json(triggers);
     });
@@ -87,14 +87,14 @@ restapi.get('/listTrigger', function(req, res){
 
 
 // API to get Number of Sensors which are active
-restapi.get('/noOfSensor', function(req, res){
+restapi.get('/noOfSensor', function(req, res) {
     Sensor.count({}, function(err, n) {
         res.json(n);
     });
 });
 
 // API to get Number of Sensors which are active
-restapi.get('/noOfError', function(req, res){
+restapi.get('/noOfError', function(req, res) {
     Error.count({}, function(err, n) {
         res.json(n);
     });
@@ -102,7 +102,7 @@ restapi.get('/noOfError', function(req, res){
 
 
 // API to get Number of Actuators which are active
-restapi.get('/noOfActuator', function(req, res){
+restapi.get('/noOfActuator', function(req, res) {
     Actuator.count({}, function(err, n) {
         res.json(n);
     });
@@ -110,7 +110,7 @@ restapi.get('/noOfActuator', function(req, res){
 
 
 // API to get Number of Triggers which are active
-restapi.get('/noOfTrigger', function(req, res){
+restapi.get('/noOfTrigger', function(req, res) {
     Trigger.count({}, function(err, n) {
         res.json(n);
     });
@@ -118,12 +118,13 @@ restapi.get('/noOfTrigger', function(req, res){
 
 
 // To remove a trigger from database
-restapi.post('/removeTrigger',function(req,res){
-    Trigger.remove({id:  req.param('id')}, function(err) {
-        if (err){
+restapi.post('/removeTrigger', function(req, res) {
+    Trigger.remove({
+        id: req.param('id')
+    }, function(err) {
+        if (err) {
             res.status(500);
-        }
-        else {
+        } else {
             res.status(202);
         }
         res.end();
@@ -131,7 +132,7 @@ restapi.post('/removeTrigger',function(req,res){
 });
 
 // To add a new trigger to database
-restapi.post('/addTrigger',function(req,res){
+restapi.post('/addTrigger', function(req, res) {
     var trigger = new Trigger({
         id: req.param("name"),
         name: req.param("name"),
@@ -141,31 +142,39 @@ restapi.post('/addTrigger',function(req,res){
         active: req.param("active")
     });
 
-    trigger.save(function(err, row){
-        if (err){
+    trigger.save(function(err, row) {
+        if (err) {
             res.json(err);
             res.status(500);
-        }
-        else {
+        } else {
             res.status(202);
         }
         res.end();
     });
 });
 
-restapi.post('/editTrigger',function(req,res){
+restapi.post('/editTrigger', function(req, res) {
 
-	var query = {id: req.param('id')};
-	var update = {name:req.param("name"), sensor_id:req.param("sensor_id"), condition: req.param("condition"), triggerFunc: req.param("triggerFunc"), active: req.param("active")}
-	var options = {new: true};
+    var query = {
+        id: req.param('id')
+    };
+    var update = {
+        name: req.param("name"),
+        sensor_id: req.param("sensor_id"),
+        condition: req.param("condition"),
+        triggerFunc: req.param("triggerFunc"),
+        active: req.param("active")
+    }
+    var options = {
+        new: true
+    };
 
 
-    Trigger.findOneAndUpdate(query,update,options, function(err, row){
-        if (err){
+    Trigger.findOneAndUpdate(query, update, options, function(err, row) {
+        if (err) {
             res.json(err);
             res.status(500);
-        }
-        else {
+        } else {
             res.status(202);
         }
         res.end();
@@ -173,30 +182,54 @@ restapi.post('/editTrigger',function(req,res){
 });
 
 
-restapi.get('/latestValue', function(req, res){
-	var hops=0, total = 2;
-	var lightValue=100 , tempValue=25
+restapi.get('/latestValue', function(req, res) {
+    var hops = 0,
+        total = 2;
+    var lightValue = 100,
+        tempValue = 25
 
-	function done(){
-		var value = [];
-		value.push({"name":"Temperature","value":tempValue})
-		value.push({"name":"Light","value":lightValue})
-		res.json(value);
-	}
-	var light = Data.findOne({sensor_id: 'light'},{},{sort: { '$natural' : -1 } }, function(err, sensors) {
+    function done() {
+        var value = [];
+        value.push({
+            "name": "Temperature",
+            "value": tempValue
+        })
+        value.push({
+            "name": "Light",
+            "value": lightValue
+        })
+        res.json(value);
+    }
+    var light = Data.findOne({
+        sensor_id: 'light'
+    }, {}, {
+        sort: {
+            '$natural': -1
+        }
+    }, function(err, sensors) {
 
-        if (sensors != null){
-			lightValue = sensors.value
-		}
-		 if(++hops>=total ){ done(); }
-	});
-	var temp= Data.findOne({sensor_id: 'temperature'},{},{sort: { '$natural' : -1 } }, function(err, sensors) {
+        if (sensors != null) {
+            lightValue = sensors.value
+        }
+        if (++hops >= total) {
+            done();
+        }
+    });
+    var temp = Data.findOne({
+        sensor_id: 'temperature'
+    }, {}, {
+        sort: {
+            '$natural': -1
+        }
+    }, function(err, sensors) {
 
-        if (sensors != null){
-			tempValue = sensors.value
-		}
-		 if(++hops>=total){ done(); }
-	});
+        if (sensors != null) {
+            tempValue = sensors.value
+        }
+        if (++hops >= total) {
+            done();
+        }
+    });
 });
 
 // Api to redirect to Angular.JS website
